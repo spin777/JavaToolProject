@@ -1,0 +1,68 @@
+<component name="ArtifactManager">
+  <artifact type="jlink" name="gametool">
+    <output-path>$PROJECT_DIR$/out/artifacts/gametool</output-path>
+    <root id="root">
+      <element id="module-output" name="gametool" />
+      <element id="library" level="project" name="Maven: cn.hutool:hutool-all:5.8.38" />
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:4.31.1" />
+      <element id="library" level="project" name="Maven: io.netty:netty-all:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-buffer:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-base:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-classes-quic:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-compression:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-dns:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-haproxy:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-http2:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-http3:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-http:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-marshalling:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-memcache:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-mqtt:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-native-quic:linux-aarch_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-native-quic:linux-x86_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-native-quic:osx-aarch_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-native-quic:osx-x86_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-native-quic:windows-x86_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-protobuf:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-redis:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-smtp:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-socks:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-stomp:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-xml:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-common:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-handler-ssl-ocsp:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-handler-proxy:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-resolver-dns-native-macos:osx-aarch_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-resolver-dns-classes-macos:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-resolver-dns:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-resolver-dns-native-macos:osx-x86_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-handler:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-classes-epoll:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-epoll:linux-aarch_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-io_uring:linux-riscv64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-kqueue:osx-x86_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-io_uring:linux-x86_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-io_uring:linux-aarch_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-epoll:linux-x86_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-epoll:linux-riscv64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-classes-kqueue:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-classes-io_uring:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-resolver:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-rxtx:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:21.0.7" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:21.0.7" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:21.0.7" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:21.0.7" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:21.0.7" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:21.0.7" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:21.0.7" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-udt:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-sctp:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-unix-common:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport-native-kqueue:osx-aarch_64:4.2.2.Final" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:21.0.7" />
+    </root>
+  </artifact>
+</component>
