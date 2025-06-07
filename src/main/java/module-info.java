@@ -2,7 +2,6 @@ module com.st.cloud.gametool {
     requires javafx.controls;
     requires javafx.fxml;
     requires jdk.jfr;
-    requires static lombok;
     requires cn.hutool;
     requires java.sql;
     requires java.net.http;
@@ -12,6 +11,7 @@ module com.st.cloud.gametool {
     requires io.netty.common;
     requires com.google.protobuf;
     requires io.netty.buffer;
+    requires static lombok;
     opens com.st.cloud.gametool to javafx.fxml;
     exports com.st.cloud.gametool;
     exports com.st.cloud.gametool.controller;

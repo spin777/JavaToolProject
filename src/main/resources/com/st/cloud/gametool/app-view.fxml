@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane style="-fx-font-family: 'SimSun'; -fx-font-size: 12pt;" xmlns="http://javafx.com/javafx/17.0.12"
+<Pane style="-fx-font-family: 'SimSun'; -fx-font-size: 12pt;" xmlns="http://javafx.com/javafx/21.0.7"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.st.cloud.gametool.controller.AppController">
     <!--服务器地址-->
     <Label layoutX="50.0" layoutY="20" prefHeight="18.0" prefWidth="88.0" text="服务器地址:"/>

@@ -17,7 +17,10 @@ import javafx.scene.control.*;
 import lombok.Getter;
 
 import java.io.FileWriter;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -262,6 +265,7 @@ public class AppController {
     AtomicBoolean runState = new AtomicBoolean(false);
     GameVo gameVo = null;
     String path = "C:/Users/Admin/Desktop/";
+    Map<Integer, String> logMap = new ConcurrentHashMap<>();
 
     /**
      * 运行游戏
@@ -280,6 +284,7 @@ public class AppController {
             showCloseAlert("请输入正确的运行次数");
             return;
         }
+        logMap.clear();
         runState.set(true);
         runGame.setText("正在运行");
         gameVo = new GameVo();
@@ -291,59 +296,44 @@ public class AppController {
         gameVo.setRunNum(runNum);
         path += gameId + ".txt";
         String writerStr = String.format("%s,开始携带额度:%s\n", DateUtil.now(), gameVo.getCarry().get());
-        writerText(writerStr, false);
+        logMap.put(0, writerStr);
+        javafx.application.Platform.runLater(() -> logTa.setText(writerStr));
         send();
     }
 
-   public void endRunGame() {
-       javafx.application.Platform.runLater(() -> {
-           runState.set(false);
-           runGame.setText("运行");
-           gameVo = null;
-           path = "C:/Users/Admin/Desktop/";
-       });
+    public void endRunGame() {
+        javafx.application.Platform.runLater(() -> {
+            runState.set(false);
+            runGame.setText("运行");
+            gameVo = null;
+            path = "C:/Users/Admin/Desktop/";
+        });
     }
 
 
-    void writerText(String writerStr, boolean isAppend) {
-        try (FileWriter writer = new FileWriter(path, isAppend)) {
-            if (isAppend) {
-                writer.append(writerStr);
-                javafx.application.Platform.runLater(() -> logTa.appendText(writerStr));
-            } else {
-                writer.write(writerStr);
-                javafx.application.Platform.runLater(() -> logTa.setText(writerStr));
-            }
+    void writerText(String writerStr) {
+        try (FileWriter writer = new FileWriter(path)) {
+            writer.write(writerStr);
             writer.flush();
         } catch (Exception e) {
             javafx.application.Platform.runLater(() -> logTa.appendText(e.getMessage()));
         }
     }
 
-
     short msgId = -8888;
 
     void send() {
-        if (Objects.isNull(gameVo)) {
-            showCloseAlert("没有运行任务");
-            return;
-        }
-        if (gameVo.addCount()) {
-            String writerStr = String.format("%s,结束:当前总携带:%s,总压:%s,总得分:%s,总运行:%s 毫秒\n", DateUtil.now(), gameVo.getCarry().get(),
-                    gameVo.getAllBet().get(), gameVo.getWin().get(), System.currentTimeMillis() - gameVo.getStartTime());
-            writerText(writerStr, true);
-            endRunGame();
-            showCloseAlert("运行任务结束");
-            return;
-        }
         Thread.startVirtualThread(() -> {
-            javafx.application.Platform.runLater(() -> logLabel.setText(String.format("第 %s 局", gameVo.getCount().get())));
-            ToolsProto.ClientReq.Builder builder = ToolsProto.ClientReq.newBuilder();
-            gameVo.getCarry().addAndGet(-gameVo.getBet());
-            gameVo.getAllBet().addAndGet(gameVo.getBet());
-            builder.setScore(gameVo.getScore());
-            builder.setBet(gameVo.getBet());
-            webSocket.sendMessage(msgId, builder);
+            int runNum = gameVo.getRunNum();
+            for (int i = 1; i <= runNum; i++) {
+                int finalI = i;
+                javafx.application.Platform.runLater(() -> logLabel.setText(String.format("第 %s 局", finalI)));
+                ToolsProto.ClientReq.Builder builder = ToolsProto.ClientReq.newBuilder();
+                builder.setScore(gameVo.getScore());
+                builder.setBet(gameVo.getBet());
+                webSocket.sendMessage(msgId, builder);
+                ThreadUtil.sleep(3);
+            }
         });
     }
 
@@ -359,20 +349,48 @@ public class AppController {
 
 
     public void onMessage(short code, byte[] bytes) {
-        if (code == msgId) {
-            ToolsProto.ClientRes res = toClientRes(bytes);
-            long win = res.getWin();
-            String rtp = res.getRtp();
-            boolean isFree = res.getIsFree();
-            if (win > 0) {
-                gameVo.getWin().addAndGet(win);
-                gameVo.getCarry().addAndGet(win);
-            }
-            String writerStr = String.format("%s,第%s局,%s,变动后:%s,得分:%s,作弊值:%s\n", DateUtil.now(), gameVo.getCount().get(), isFree ? "免费" : "常规", gameVo.getCarry().get(), win, rtp);
-            writerText(writerStr, true);
-            ThreadUtil.sleep(100);
-            //下一局
-            send();
+        if (code != msgId) {
+            return;
         }
+        int runNum = gameVo.getCount().incrementAndGet();
+
+        long carry = gameVo.getCarry().addAndGet(-gameVo.getBet());
+        long allBet = gameVo.getAllBet().addAndGet(gameVo.getBet());
+        long allWin = gameVo.getWin().get();
+
+        ToolsProto.ClientRes res = toClientRes(bytes);
+        long win = res.getWin();
+        String rtp = res.getRtp();
+        boolean isFree = res.getIsFree();
+        if (win > 0) {
+            allWin = gameVo.getWin().addAndGet(win);
+            carry = gameVo.getCarry().addAndGet(win);
+        }
+
+        String writerStr = String.format("%s,第%s局,%s,变动后:%s,得分:%s,作弊值:%s\n", DateUtil.now(), runNum, isFree ? "免费" : "常规", carry, win, rtp);
+        logMap.put(runNum, writerStr);
+        if (runNum % 1000 == 0) {
+            String finalWriterStr = writerStr;
+            javafx.application.Platform.runLater(() -> logTa.appendText(finalWriterStr));
+        }
+        if (runNum >= gameVo.getRunNum()) {
+            writerStr = String.format("%s,结束:当前总携带:%s,总压:%s,总得分:%s,总运行:%s 毫秒\n", DateUtil.now(), carry,
+                    allBet, allWin, System.currentTimeMillis() - gameVo.getStartTime());
+            logMap.put(runNum + 1, writerStr);
+
+            String finalWriterStr1 = writerStr;
+            javafx.application.Platform.runLater(() -> logTa.appendText(finalWriterStr1));
+
+            StringBuilder sb = new StringBuilder();
+            logMap.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getKey)).forEach(entry -> {
+                sb.append(entry.getValue());
+            });
+
+            writerText(sb.toString());
+
+            endRunGame();
+            showCloseAlert("运行任务结束");
+        }
+
     }
 }

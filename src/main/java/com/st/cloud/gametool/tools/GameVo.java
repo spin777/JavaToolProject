@@ -34,12 +34,11 @@ public class GameVo {
     private long startTime = System.currentTimeMillis();
 
     private int runNum;
+
     private AtomicInteger count = new AtomicInteger(0);
 
 
-    public boolean addCount() {
-        return count.incrementAndGet() > runNum;
-    }
+
 
 
 }
