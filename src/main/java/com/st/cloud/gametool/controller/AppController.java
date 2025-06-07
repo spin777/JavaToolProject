@@ -382,9 +382,7 @@ public class AppController {
             javafx.application.Platform.runLater(() -> logTa.appendText(finalWriterStr1));
 
             StringBuilder sb = new StringBuilder();
-            logMap.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getKey)).forEach(entry -> {
-                sb.append(entry.getValue());
-            });
+            logMap.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getKey)).forEach(entry -> sb.append(entry.getValue()));
 
             writerText(sb.toString());
 
