@@ -11,11 +11,12 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <javafx.version>21.0.7</javafx.version>
-        <gluonfx.maven.plugin.version>1.0.22</gluonfx.maven.plugin.version>
-        <client.plugin.version>0.1.42</client.plugin.version>
+        <main.class>com.st.cloud.gametool.App</main.class>
+        <app.name>GameTool</app.name>
     </properties>
 
     <dependencies>
@@ -60,6 +61,7 @@
 
     <build>
         <plugins>
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -67,135 +69,68 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.38</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
-
-            <!-- JavaFX插件 -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <executions>
                     <execution>
+                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.st.cloud.gametool.App</mainClass>
+                            <mainClass>com.st.cloud.gametool/com.st.cloud.gametool.RunMain</mainClass>
+                            <launcher>app</launcher>
+                            <jlinkZipName>app</jlinkZipName>
+                            <jlinkImageName>app</jlinkImageName>
+                            <noManPages>true</noManPages>
+                            <stripDebug>true</stripDebug>
+                            <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Gluon Client插件 - 原生编译 -->
             <plugin>
-                <groupId>com.gluonhq</groupId>
-                <artifactId>client-maven-plugin</artifactId>
-                <version>${client.plugin.version}</version>
-                <configuration>
-                    <!-- 目标平台 -->
-                    <target>host</target>
-
-                    <!-- 主类 -->
-                    <mainClass>com.st.cloud.gametool.App</mainClass>
-
-                    <!-- 应用名称 -->
-                    <appName>GameTool</appName>
-
-                    <!-- 详细输出 -->
-                    <verbose>true</verbose>
-
-                    <!-- 发布配置 -->
-                    <releaseConfiguration>
-                        <!-- 启用压缩 -->
-                        <compress>true</compress>
-
-                        <!-- JavaFX模块 -->
-                        <bundlesList>
-                            <list>javafx.controls</list>
-                            <list>javafx.fxml</list>
-                            <list>javafx.base</list>
-                            <list>javafx.graphics</list>
-                        </bundlesList>
-
-                        <!-- 资源文件 -->
-                        <resourcesList>
-                            <list>.*\.fxml</list>
-                            <list>.*\.css</list>
-                            <list>.*\.png</list>
-                            <list>.*\.jpg</list>
-                            <list>.*\.ico</list>
-                            <list>.*\.properties</list>
-                        </resourcesList>
-
-                        <!-- 反射配置 -->
-                        <reflectionList>
-                            <list>com.st.cloud.gametool.App</list>
-                            <list>javafx.fxml.FXMLLoader</list>
-                            <list>javafx.scene.control.*</list>
-                        </reflectionList>
-
-                        <!-- JNI配置 -->
-                        <jniList>
-                            <list>javafx.scene.control.*</list>
-                        </jniList>
-
-                        <!-- 初始化配置 -->
-                        <initBuildTimeList>
-                            <list>com.sun.javafx.application.PlatformImpl</list>
-                        </initBuildTimeList>
-
-                        <!-- 运行时初始化 -->
-                        <initRunTimeList>
-                            <list>com.sun.glass.ui.Application</list>
-                            <list>com.sun.prism.GraphicsPipeline</list>
-                        </initRunTimeList>
-                    </releaseConfiguration>
-
-                    <!-- 编译器参数 -->
-                    <nativeImageArgs>
-                        <list>--no-fallback</list>
-                        <list>--install-exit-handlers</list>
-                        <list>--enable-url-protocols=http,https</list>
-                        <list>--allow-incomplete-classpath</list>
-                        <list>-H:+ReportExceptionStackTraces</list>
-                        <list>-H:+PrintClassInitialization</list>
-                        <list>--initialize-at-build-time=sun.awt.X11.XToolkit</list>
-                        <list>--initialize-at-run-time=com.sun.glass.ui.gtk.GtkApplication</list>
-                    </nativeImageArgs>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.st.cloud.gametool.RunMain</mainClass>
+                                </transformer>
+                            </transformers>
+                            <!-- 排除签名文件，防止打包错误 -->
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
-
         </plugins>
     </build>
 
-    <!-- 配置文件 -->
-    <profiles>
-        <!-- 开发模式 -->
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
 
-        <!-- 原生编译模式 -->
-        <profile>
-            <id>native</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.gluonhq</groupId>
-                        <artifactId>client-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
