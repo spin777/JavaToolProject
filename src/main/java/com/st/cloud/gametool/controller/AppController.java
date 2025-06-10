@@ -277,7 +277,18 @@ public class AppController {
             return;
         }
         if (runState.get()) {
+            int runNum = gameVo.getCount().incrementAndGet();
+            long allWin = gameVo.getWin().get();
+            long allBet = gameVo.getAllBet().get();
+            String writerStr = String.format("%s,结束:当前总携带:%s,总压:%s,总得分:%s,返奖率:%s,总运行:%s 毫秒\n", DateUtil.now(), gameVo.getCarry().get(),
+                    allBet, allWin, NumberUtil.div(allWin, allBet, 2), System.currentTimeMillis() - gameVo.getStartTime());
+            javafx.application.Platform.runLater(() -> logTa.appendText(writerStr));
+            logMap.put(runNum + 1, writerStr);
+            StringBuilder sb = new StringBuilder();
+            logMap.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getKey)).forEach(entry -> sb.append(entry.getValue()));
+            writerText(sb.toString());
             endRunGame();
+            showCloseAlert("运行任务结束");
             return;
         }
         int runNum = Integer.parseInt(this.runNum.getText());
@@ -327,7 +338,7 @@ public class AppController {
         Thread.startVirtualThread(() -> {
             int runNum = gameVo.getRunNum();
             for (int i = 1; i <= runNum; i++) {
-                ThreadUtil.sleep(1);
+                ThreadUtil.sleep(2000);
                 int finalI = i;
                 javafx.application.Platform.runLater(() -> logLabel.setText(String.format("第 %s 局", finalI)));
                 ToolsProto.ClientReq.Builder builder = ToolsProto.ClientReq.newBuilder();
