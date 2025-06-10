@@ -3,6 +3,7 @@ package com.st.cloud.gametool.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONObject;
@@ -326,13 +327,13 @@ public class AppController {
         Thread.startVirtualThread(() -> {
             int runNum = gameVo.getRunNum();
             for (int i = 1; i <= runNum; i++) {
+                ThreadUtil.sleep(1);
                 int finalI = i;
                 javafx.application.Platform.runLater(() -> logLabel.setText(String.format("第 %s 局", finalI)));
                 ToolsProto.ClientReq.Builder builder = ToolsProto.ClientReq.newBuilder();
                 builder.setScore(gameVo.getScore());
                 builder.setBet(gameVo.getBet());
                 webSocket.sendMessage(msgId, builder);
-                ThreadUtil.sleep(3);
             }
         });
     }
@@ -374,8 +375,8 @@ public class AppController {
             javafx.application.Platform.runLater(() -> logTa.appendText(finalWriterStr));
         }
         if (runNum >= gameVo.getRunNum()) {
-            writerStr = String.format("%s,结束:当前总携带:%s,总压:%s,总得分:%s,总运行:%s 毫秒\n", DateUtil.now(), carry,
-                    allBet, allWin, System.currentTimeMillis() - gameVo.getStartTime());
+            writerStr = String.format("%s,结束:当前总携带:%s,总压:%s,总得分:%s,返奖率:%s,总运行:%s 毫秒\n", DateUtil.now(), carry,
+                    allBet, allWin, NumberUtil.div(allWin, allBet, 2), System.currentTimeMillis() - gameVo.getStartTime());
             logMap.put(runNum + 1, writerStr);
 
             String finalWriterStr1 = writerStr;

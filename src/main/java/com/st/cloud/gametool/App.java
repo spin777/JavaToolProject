@@ -26,6 +26,7 @@ public class App extends Application {
         stage.setOnCloseRequest(event -> {
             controller.saveConfig();
             controller.close();
+            System.exit(0);
         });
 
         stage.show();
