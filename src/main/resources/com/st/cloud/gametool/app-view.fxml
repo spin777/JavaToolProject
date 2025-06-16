@@ -28,7 +28,7 @@
     <Label layoutX="505.0" layoutY="120" prefHeight="18.0" prefWidth="40.0" text="单注:" />
     <TextField fx:id="betNum" layoutX="545.0" layoutY="116" prefWidth="80" />
 
-    <RadioButton fx:id="payButton" layoutX="635.0" layoutY="118.0" mnemonicParsing="false" text="免费模式"/>
+    <RadioButton fx:id="payButton" layoutX="635.0" layoutY="118.0" mnemonicParsing="false" text="购买模式"/>
 
     <Button fx:id="runGame" layoutX="735.0" layoutY="116" mnemonicParsing="false" prefWidth="100.0" text="运行" />
 
