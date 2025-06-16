@@ -16,4 +16,5 @@ public class ConfigVo {
     private Integer carryNum;
     private Integer anteNum;
     private Integer betNum;
+    private boolean isPay;
 }

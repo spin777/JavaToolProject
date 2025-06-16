@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import lombok.Getter;
 
 import java.io.FileWriter;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
@@ -84,6 +85,13 @@ public class AppController {
      */
     @FXML
     TextField betNum;
+
+    /**
+     * 免费按钮
+     */
+    @FXML
+    RadioButton payButton;
+
     /**
      * 运行游戏按钮
      */
@@ -111,6 +119,7 @@ public class AppController {
         numberListener(carryNum);
         numberListener(anteNum);
         numberListener(betNum);
+
         //设置缓存配置
         ConfigVo cvo = ConfigManager.loaderConfig();
         if (Objects.nonNull(cvo)) {
@@ -122,6 +131,7 @@ public class AppController {
             setNumberValue(carryNum, cvo.getCarryNum());
             setNumberValue(anteNum, cvo.getAnteNum());
             setNumberValue(betNum, cvo.getBetNum());
+            payButton.setSelected(cvo.isPay());
         }
         //  登录按钮点击事件
         login.setOnAction(event -> login());
@@ -265,7 +275,7 @@ public class AppController {
     Thread thread;
     AtomicBoolean runState = new AtomicBoolean(false);
     GameVo gameVo = null;
-    String path = "C:/Users/Admin/Desktop/";
+    String path = getDesktopPath();
     Map<Integer, String> logMap = new ConcurrentHashMap<>();
 
     /**
@@ -306,7 +316,8 @@ public class AppController {
         gameVo.setWin(new AtomicLong(0));
         gameVo.setAllBet(new AtomicLong(0));
         gameVo.setRunNum(runNum);
-        path += gameId + ".txt";
+        gameVo.setPay(payButton.isSelected());
+        path += "\\" + gameId + ".txt";
         String writerStr = String.format("%s,开始携带额度:%s\n", DateUtil.now(), gameVo.getCarry().get());
         logMap.put(0, writerStr);
         javafx.application.Platform.runLater(() -> logTa.setText(writerStr));
@@ -318,10 +329,14 @@ public class AppController {
             runState.set(false);
             runGame.setText("运行");
             gameVo = null;
-            path = "C:/Users/Admin/Desktop/";
+            path = getDesktopPath();
         });
     }
 
+    String getDesktopPath() {
+        String userHome = System.getProperty("user.home");
+        return Paths.get(userHome, "Desktop").toString();
+    }
 
     void writerText(String writerStr) {
         try (FileWriter writer = new FileWriter(path)) {
@@ -338,12 +353,13 @@ public class AppController {
         Thread.startVirtualThread(() -> {
             int runNum = gameVo.getRunNum();
             for (int i = 1; i <= runNum; i++) {
-                ThreadUtil.sleep(1);
+                ThreadUtil.sleep(20);
                 int finalI = i;
                 javafx.application.Platform.runLater(() -> logLabel.setText(String.format("第 %s 局", finalI)));
                 ToolsProto.ClientReq.Builder builder = ToolsProto.ClientReq.newBuilder();
                 builder.setScore(gameVo.getScore());
                 builder.setBet(gameVo.getBet());
+                builder.setIsPay(gameVo.isPay());
                 webSocket.sendMessage(msgId, builder);
             }
         });
@@ -381,7 +397,7 @@ public class AppController {
 
         String writerStr = String.format("%s,第%s局,%s,变动后:%s,得分:%s,作弊值:%s\n", DateUtil.now(), runNum, isFree ? "免费" : "常规", carry, win, rtp);
         logMap.put(runNum, writerStr);
-        if (runNum % 1000 == 0) {
+        if (runNum % 100 == 0) {
             String finalWriterStr = writerStr;
             javafx.application.Platform.runLater(() -> logTa.appendText(finalWriterStr));
         }

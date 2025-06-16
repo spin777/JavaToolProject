@@ -31,6 +31,8 @@ public class GameVo {
      */
     private AtomicLong allBet;
 
+    private boolean pay;
+
     private long startTime = System.currentTimeMillis();
 
     private int runNum;

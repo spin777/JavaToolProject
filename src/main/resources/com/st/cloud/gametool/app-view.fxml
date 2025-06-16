@@ -3,35 +3,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane style="-fx-font-family: 'SimSun'; -fx-font-size: 12pt;" xmlns="http://javafx.com/javafx/21.0.7"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.st.cloud.gametool.controller.AppController">
+<Pane style="-fx-font-family: 'SimSun'; -fx-font-size: 12pt;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.st.cloud.gametool.controller.AppController">
     <!--服务器地址-->
-    <Label layoutX="50.0" layoutY="20" prefHeight="18.0" prefWidth="88.0" text="服务器地址:"/>
-    <TextField fx:id="serverUrl" layoutX="150.0" layoutY="16" prefWidth="862"/>
+    <Label layoutX="50.0" layoutY="20" prefHeight="18.0" prefWidth="88.0" text="服务器地址:" />
+    <TextField fx:id="serverUrl" layoutX="150.0" layoutY="16" prefWidth="862" />
     <!--登录账号-->
-    <Label layoutX="50.0" layoutY="70" prefHeight="18.0" prefWidth="40.0" text="账号:"/>
-    <TextField fx:id="account" layoutX="90.0" layoutY="66" prefWidth="200"/>
-    <Label layoutX="300.0" layoutY="70" prefHeight="18.0" prefWidth="40.0" text="密码:"/>
-    <TextField fx:id="password" layoutX="340.0" layoutY="66" prefWidth="200"/>
-    <Button fx:id="login" layoutX="550.0" layoutY="66" mnemonicParsing="false" prefWidth="140.0" text="登录"/>
+    <Label layoutX="50.0" layoutY="70" prefHeight="18.0" prefWidth="40.0" text="账号:" />
+    <TextField fx:id="account" layoutX="90.0" layoutY="66" prefWidth="200" />
+    <Label layoutX="300.0" layoutY="70" prefHeight="18.0" prefWidth="40.0" text="密码:" />
+    <TextField fx:id="password" layoutX="340.0" layoutY="66" prefWidth="200" />
+    <Button fx:id="login" layoutX="550.0" layoutY="66" mnemonicParsing="false" prefWidth="140.0" text="登录" />
     <!--链接游戏-->
-    <Label layoutX="730.0" layoutY="70" prefHeight="18.0" prefWidth="60.0" text="游戏ID:"/>
-    <TextField fx:id="gameIdTf" layoutX="785.0" layoutY="66" prefWidth="110"/>
-    <Button fx:id="linkGame" layoutX="910.0" layoutY="66" mnemonicParsing="false" prefWidth="100.0" text="链接游戏"/>
+    <Label layoutX="730.0" layoutY="70" prefHeight="18.0" prefWidth="60.0" text="游戏ID:" />
+    <TextField fx:id="gameIdTf" layoutX="785.0" layoutY="66" prefWidth="110" />
+    <Button fx:id="linkGame" layoutX="910.0" layoutY="66" mnemonicParsing="false" prefWidth="100.0" text="链接游戏" />
     <!--数值设置-->
-    <Label layoutX="50.0" layoutY="120" prefHeight="18.0" prefWidth="75.0" text="运行次数:"/>
-    <TextField fx:id="runNum" layoutX="120.0" layoutY="116" prefWidth="100"/>
+    <Label layoutX="50.0" layoutY="120" prefHeight="18.0" prefWidth="75.0" text="运行次数:" />
+    <TextField fx:id="runNum" layoutX="120.0" layoutY="116" prefWidth="100" />
 
-    <Label layoutX="240.0" layoutY="120" prefHeight="18.0" prefWidth="60.0" text="携带额:"/>
-    <TextField fx:id="carryNum" layoutX="295.0" layoutY="116" prefWidth="100"/>
-    <Label layoutX="415.0" layoutY="120" prefHeight="18.0" prefWidth="40.0" text="底注:"/>
-    <TextField fx:id="anteNum" layoutX="455.0" layoutY="116" prefWidth="100"/>
-    <Label layoutX="575.0" layoutY="120" prefHeight="18.0" prefWidth="40.0" text="单注:"/>
-    <TextField fx:id="betNum" layoutX="615.0" layoutY="116" prefWidth="100"/>
-    <Button fx:id="runGame" layoutX="735.0" layoutY="116" mnemonicParsing="false" prefWidth="100.0" text="运行"/>
+    <Label layoutX="230.0" layoutY="120" prefHeight="18.0" prefWidth="60.0" text="携带额:" />
+    <TextField fx:id="carryNum" layoutX="285.0" layoutY="116" prefWidth="80" />
+    <Label layoutX="375.0" layoutY="120" prefHeight="18.0" prefWidth="40.0" text="底注:" />
+    <TextField fx:id="anteNum" layoutX="415.0" layoutY="116" prefWidth="80" />
+    <Label layoutX="505.0" layoutY="120" prefHeight="18.0" prefWidth="40.0" text="单注:" />
+    <TextField fx:id="betNum" layoutX="545.0" layoutY="116" prefWidth="80" />
 
-    <Label fx:id = "logLabel" layoutX="855.0" layoutY="120" prefHeight="18.0"/>
+    <RadioButton fx:id="payButton" layoutX="635.0" layoutY="118.0" mnemonicParsing="false" text="免费模式"/>
+
+    <Button fx:id="runGame" layoutX="735.0" layoutY="116" mnemonicParsing="false" prefWidth="100.0" text="运行" />
+
+    <Label fx:id="logLabel" layoutX="855.0" layoutY="120" prefHeight="18.0" />
 
     <!--日志区域-->
-    <TextArea fx:id="logTa" layoutX="10.0" layoutY="170.0" prefHeight="420.0" prefWidth="1040.0"/>
+    <TextArea fx:id="logTa" layoutX="10.0" layoutY="170.0" prefHeight="420.0" prefWidth="1040.0" />
+
 </Pane>

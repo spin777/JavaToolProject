@@ -48,6 +48,16 @@ public final class ToolsProto {
      * @return The bet.
      */
     long getBet();
+
+    /**
+     * <pre>
+     * 是否购买模式
+     * </pre>
+     *
+     * <code>bool isPay = 3;</code>
+     * @return The isPay.
+     */
+    boolean getIsPay();
   }
   /**
    * Protobuf type {@code ClientReq}
@@ -78,12 +88,12 @@ public final class ToolsProto {
       return ToolsProto.internal_static_ClientReq_descriptor;
     }
 
-    @Override
-    protected FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return ToolsProto.internal_static_ClientReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ClientReq.class, Builder.class);
+              ToolsProto.ClientReq.class, ToolsProto.ClientReq.Builder.class);
     }
 
     public static final int SCORE_FIELD_NUMBER = 1;
@@ -96,7 +106,7 @@ public final class ToolsProto {
      * <code>int64 score = 1;</code>
      * @return The score.
      */
-    @Override
+    @java.lang.Override
     public long getScore() {
       return score_;
     }
@@ -111,23 +121,42 @@ public final class ToolsProto {
      * <code>int64 bet = 2;</code>
      * @return The bet.
      */
-    @Override
+    @java.lang.Override
     public long getBet() {
       return bet_;
     }
 
+    public static final int ISPAY_FIELD_NUMBER = 3;
+    private boolean isPay_ = false;
+    /**
+     * <pre>
+     * 是否购买模式
+     * </pre>
+     *
+     * <code>bool isPay = 3;</code>
+     * @return The isPay.
+     */
+    @java.lang.Override
+    public boolean getIsPay() {
+      return isPay_;
+    }
+
     private byte memoizedIsInitialized = -1;
-    @Override
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
+      if (isInitialized == 1) {
+          return true;
+      }
+      if (isInitialized == 0) {
+          return false;
+      }
 
       memoizedIsInitialized = 1;
       return true;
     }
 
-    @Override
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (score_ != 0L) {
@@ -136,13 +165,18 @@ public final class ToolsProto {
       if (bet_ != 0L) {
         output.writeInt64(2, bet_);
       }
+      if (isPay_ != false) {
+        output.writeBool(3, isPay_);
+      }
       getUnknownFields().writeTo(output);
     }
 
-    @Override
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+          return size;
+      }
 
       size = 0;
       if (score_ != 0L) {
@@ -153,30 +187,41 @@ public final class ToolsProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, bet_);
       }
+      if (isPay_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, isPay_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    @Override
-    public boolean equals(final Object obj) {
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof ClientReq)) {
+      if (!(obj instanceof ToolsProto.ClientReq)) {
         return super.equals(obj);
       }
-      ClientReq other = (ClientReq) obj;
+      ToolsProto.ClientReq other = (ToolsProto.ClientReq) obj;
 
       if (getScore()
-          != other.getScore()) return false;
+          != other.getScore()) {
+          return false;
+      }
       if (getBet()
-          != other.getBet()) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
+          != other.getBet()) {
+          return false;
+      }
+      if (getIsPay()
+          != other.getIsPay()) {
+          return false;
+      }
+        return getUnknownFields().equals(other.getUnknownFields());
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -189,49 +234,52 @@ public final class ToolsProto {
       hash = (37 * hash) + BET_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getBet());
+      hash = (37 * hash) + ISPAY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsPay());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ClientReq parseFrom(byte[] data)
+    public static ToolsProto.ClientReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ClientReq parseFrom(java.io.InputStream input)
+    public static ToolsProto.ClientReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -239,26 +287,26 @@ public final class ToolsProto {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static ClientReq parseDelimitedFrom(java.io.InputStream input)
+    public static ToolsProto.ClientReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static ClientReq parseDelimitedFrom(
+    public static ToolsProto.ClientReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static ClientReq parseFrom(
+    public static ToolsProto.ClientReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -266,23 +314,23 @@ public final class ToolsProto {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @Override
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ClientReq prototype) {
+    public static Builder newBuilder(ToolsProto.ClientReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @Override
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -292,68 +340,69 @@ public final class ToolsProto {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:ClientReq)
-        ClientReqOrBuilder {
+        ToolsProto.ClientReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return ToolsProto.internal_static_ClientReq_descriptor;
       }
 
-      @Override
-      protected FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return ToolsProto.internal_static_ClientReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ClientReq.class, Builder.class);
+                ToolsProto.ClientReq.class, ToolsProto.ClientReq.Builder.class);
       }
 
-      // Construct using com.st.cloud.game.newCommand.protobuf.ToolsProto.ClientReq.newBuilder()
+      // Construct using ToolsProto.ClientReq.newBuilder()
       private Builder() {
 
       }
 
       private Builder(
-          BuilderParent parent) {
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
 
       }
-      @Override
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
         score_ = 0L;
         bet_ = 0L;
+        isPay_ = false;
         return this;
       }
 
-      @Override
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return ToolsProto.internal_static_ClientReq_descriptor;
       }
 
-      @Override
-      public ClientReq getDefaultInstanceForType() {
-        return ClientReq.getDefaultInstance();
+      @java.lang.Override
+      public ToolsProto.ClientReq getDefaultInstanceForType() {
+        return ToolsProto.ClientReq.getDefaultInstance();
       }
 
-      @Override
-      public ClientReq build() {
-        ClientReq result = buildPartial();
+      @java.lang.Override
+      public ToolsProto.ClientReq build() {
+        ToolsProto.ClientReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @Override
-      public ClientReq buildPartial() {
-        ClientReq result = new ClientReq(this);
+      @java.lang.Override
+      public ToolsProto.ClientReq buildPartial() {
+        ToolsProto.ClientReq result = new ToolsProto.ClientReq(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(ClientReq result) {
+      private void buildPartial0(ToolsProto.ClientReq result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.score_ = score_;
@@ -361,43 +410,51 @@ public final class ToolsProto {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.bet_ = bet_;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.isPay_ = isPay_;
+        }
       }
 
-      @Override
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ClientReq) {
-          return mergeFrom((ClientReq)other);
+        if (other instanceof ToolsProto.ClientReq) {
+          return mergeFrom((ToolsProto.ClientReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ClientReq other) {
-        if (other == ClientReq.getDefaultInstance()) return this;
+      public Builder mergeFrom(ToolsProto.ClientReq other) {
+        if (other == ToolsProto.ClientReq.getDefaultInstance()) {
+            return this;
+        }
         if (other.getScore() != 0L) {
           setScore(other.getScore());
         }
         if (other.getBet() != 0L) {
           setBet(other.getBet());
         }
+        if (other.getIsPay() != false) {
+          setIsPay(other.getIsPay());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
 
-      @Override
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @Override
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         if (extensionRegistry == null) {
-          throw new NullPointerException();
+          throw new java.lang.NullPointerException();
         }
         try {
           boolean done = false;
@@ -417,6 +474,11 @@ public final class ToolsProto {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
+              case 24: {
+                isPay_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -443,7 +505,7 @@ public final class ToolsProto {
        * <code>int64 score = 1;</code>
        * @return The score.
        */
-      @Override
+      @java.lang.Override
       public long getScore() {
         return score_;
       }
@@ -487,7 +549,7 @@ public final class ToolsProto {
        * <code>int64 bet = 2;</code>
        * @return The bet.
        */
-      @Override
+      @java.lang.Override
       public long getBet() {
         return bet_;
       }
@@ -522,22 +584,66 @@ public final class ToolsProto {
         return this;
       }
 
+      private boolean isPay_ ;
+      /**
+       * <pre>
+       * 是否购买模式
+       * </pre>
+       *
+       * <code>bool isPay = 3;</code>
+       * @return The isPay.
+       */
+      @java.lang.Override
+      public boolean getIsPay() {
+        return isPay_;
+      }
+      /**
+       * <pre>
+       * 是否购买模式
+       * </pre>
+       *
+       * <code>bool isPay = 3;</code>
+       * @param value The isPay to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsPay(boolean value) {
+
+        isPay_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 是否购买模式
+       * </pre>
+       *
+       * <code>bool isPay = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsPay() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        isPay_ = false;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ClientReq)
     }
 
     // @@protoc_insertion_point(class_scope:ClientReq)
-    private static final ClientReq DEFAULT_INSTANCE;
+    private static final ToolsProto.ClientReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ClientReq();
+      DEFAULT_INSTANCE = new ToolsProto.ClientReq();
     }
 
-    public static ClientReq getDefaultInstance() {
+    public static ToolsProto.ClientReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<ClientReq>
         PARSER = new com.google.protobuf.AbstractParser<ClientReq>() {
-      @Override
+      @java.lang.Override
       public ClientReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -561,13 +667,13 @@ public final class ToolsProto {
       return PARSER;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<ClientReq> getParserForType() {
       return PARSER;
     }
 
-    @Override
-    public ClientReq getDefaultInstanceForType() {
+    @java.lang.Override
+    public ToolsProto.ClientReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -595,7 +701,7 @@ public final class ToolsProto {
      * <code>string rtp = 2;</code>
      * @return The rtp.
      */
-    String getRtp();
+    java.lang.String getRtp();
     /**
      * <pre>
      * 作弊值
@@ -647,12 +753,12 @@ public final class ToolsProto {
       return ToolsProto.internal_static_ClientRes_descriptor;
     }
 
-    @Override
-    protected FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return ToolsProto.internal_static_ClientRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ClientRes.class, Builder.class);
+              ToolsProto.ClientRes.class, ToolsProto.ClientRes.Builder.class);
     }
 
     public static final int WIN_FIELD_NUMBER = 1;
@@ -665,14 +771,14 @@ public final class ToolsProto {
      * <code>int64 win = 1;</code>
      * @return The win.
      */
-    @Override
+    @java.lang.Override
     public long getWin() {
       return win_;
     }
 
     public static final int RTP_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
-    private volatile Object rtp_ = "";
+    private volatile java.lang.Object rtp_ = "";
     /**
      * <pre>
      * 作弊值
@@ -681,15 +787,15 @@ public final class ToolsProto {
      * <code>string rtp = 2;</code>
      * @return The rtp.
      */
-    @Override
-    public String getRtp() {
-      Object ref = rtp_;
-      if (ref instanceof String) {
-        return (String) ref;
+    @java.lang.Override
+    public java.lang.String getRtp() {
+      java.lang.Object ref = rtp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        java.lang.String s = bs.toStringUtf8();
         rtp_ = s;
         return s;
       }
@@ -702,14 +808,14 @@ public final class ToolsProto {
      * <code>string rtp = 2;</code>
      * @return The bytes for rtp.
      */
-    @Override
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRtpBytes() {
-      Object ref = rtp_;
-      if (ref instanceof String) {
+      java.lang.Object ref = rtp_;
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+                (java.lang.String) ref);
         rtp_ = b;
         return b;
       } else {
@@ -727,23 +833,27 @@ public final class ToolsProto {
      * <code>bool isFree = 3;</code>
      * @return The isFree.
      */
-    @Override
+    @java.lang.Override
     public boolean getIsFree() {
       return isFree_;
     }
 
     private byte memoizedIsInitialized = -1;
-    @Override
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
+      if (isInitialized == 1) {
+          return true;
+      }
+      if (isInitialized == 0) {
+          return false;
+      }
 
       memoizedIsInitialized = 1;
       return true;
     }
 
-    @Override
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (win_ != 0L) {
@@ -758,10 +868,12 @@ public final class ToolsProto {
       getUnknownFields().writeTo(output);
     }
 
-    @Override
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+          return size;
+      }
 
       size = 0;
       if (win_ != 0L) {
@@ -780,27 +892,35 @@ public final class ToolsProto {
       return size;
     }
 
-    @Override
-    public boolean equals(final Object obj) {
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof ClientRes)) {
+      if (!(obj instanceof ToolsProto.ClientRes)) {
         return super.equals(obj);
       }
-      ClientRes other = (ClientRes) obj;
+      ToolsProto.ClientRes other = (ToolsProto.ClientRes) obj;
 
       if (getWin()
-          != other.getWin()) return false;
+          != other.getWin()) {
+          return false;
+      }
       if (!getRtp()
-          .equals(other.getRtp())) return false;
+          .equals(other.getRtp())) {
+          return false;
+      }
       if (getIsFree()
-          != other.getIsFree()) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+          != other.getIsFree()) {
+          return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) {
+          return false;
+      }
       return true;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -820,44 +940,44 @@ public final class ToolsProto {
       return hash;
     }
 
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ClientRes parseFrom(byte[] data)
+    public static ToolsProto.ClientRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ClientRes parseFrom(java.io.InputStream input)
+    public static ToolsProto.ClientRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -865,26 +985,26 @@ public final class ToolsProto {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static ClientRes parseDelimitedFrom(java.io.InputStream input)
+    public static ToolsProto.ClientRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static ClientRes parseDelimitedFrom(
+    public static ToolsProto.ClientRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static ClientRes parseFrom(
+    public static ToolsProto.ClientRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -892,23 +1012,23 @@ public final class ToolsProto {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @Override
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ClientRes prototype) {
+    public static Builder newBuilder(ToolsProto.ClientRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @Override
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -918,31 +1038,31 @@ public final class ToolsProto {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:ClientRes)
-        ClientResOrBuilder {
+        ToolsProto.ClientResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return ToolsProto.internal_static_ClientRes_descriptor;
       }
 
-      @Override
-      protected FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return ToolsProto.internal_static_ClientRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ClientRes.class, Builder.class);
+                ToolsProto.ClientRes.class, ToolsProto.ClientRes.Builder.class);
       }
 
-      // Construct using com.st.cloud.game.newCommand.protobuf.ToolsProto.ClientRes.newBuilder()
+      // Construct using ToolsProto.ClientRes.newBuilder()
       private Builder() {
 
       }
 
       private Builder(
-          BuilderParent parent) {
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
 
       }
-      @Override
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
@@ -952,35 +1072,35 @@ public final class ToolsProto {
         return this;
       }
 
-      @Override
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return ToolsProto.internal_static_ClientRes_descriptor;
       }
 
-      @Override
-      public ClientRes getDefaultInstanceForType() {
-        return ClientRes.getDefaultInstance();
+      @java.lang.Override
+      public ToolsProto.ClientRes getDefaultInstanceForType() {
+        return ToolsProto.ClientRes.getDefaultInstance();
       }
 
-      @Override
-      public ClientRes build() {
-        ClientRes result = buildPartial();
+      @java.lang.Override
+      public ToolsProto.ClientRes build() {
+        ToolsProto.ClientRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @Override
-      public ClientRes buildPartial() {
-        ClientRes result = new ClientRes(this);
+      @java.lang.Override
+      public ToolsProto.ClientRes buildPartial() {
+        ToolsProto.ClientRes result = new ToolsProto.ClientRes(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(ClientRes result) {
+      private void buildPartial0(ToolsProto.ClientRes result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.win_ = win_;
@@ -993,18 +1113,20 @@ public final class ToolsProto {
         }
       }
 
-      @Override
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ClientRes) {
-          return mergeFrom((ClientRes)other);
+        if (other instanceof ToolsProto.ClientRes) {
+          return mergeFrom((ToolsProto.ClientRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ClientRes other) {
-        if (other == ClientRes.getDefaultInstance()) return this;
+      public Builder mergeFrom(ToolsProto.ClientRes other) {
+        if (other == ToolsProto.ClientRes.getDefaultInstance()) {
+            return this;
+        }
         if (other.getWin() != 0L) {
           setWin(other.getWin());
         }
@@ -1021,18 +1143,18 @@ public final class ToolsProto {
         return this;
       }
 
-      @Override
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @Override
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         if (extensionRegistry == null) {
-          throw new NullPointerException();
+          throw new java.lang.NullPointerException();
         }
         try {
           boolean done = false;
@@ -1083,7 +1205,7 @@ public final class ToolsProto {
        * <code>int64 win = 1;</code>
        * @return The win.
        */
-      @Override
+      @java.lang.Override
       public long getWin() {
         return win_;
       }
@@ -1118,7 +1240,7 @@ public final class ToolsProto {
         return this;
       }
 
-      private Object rtp_ = "";
+      private java.lang.Object rtp_ = "";
       /**
        * <pre>
        * 作弊值
@@ -1127,16 +1249,16 @@ public final class ToolsProto {
        * <code>string rtp = 2;</code>
        * @return The rtp.
        */
-      public String getRtp() {
-        Object ref = rtp_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getRtp() {
+        java.lang.Object ref = rtp_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+          java.lang.String s = bs.toStringUtf8();
           rtp_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -1149,11 +1271,11 @@ public final class ToolsProto {
        */
       public com.google.protobuf.ByteString
           getRtpBytes() {
-        Object ref = rtp_;
+        java.lang.Object ref = rtp_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+                  (java.lang.String) ref);
           rtp_ = b;
           return b;
         } else {
@@ -1170,7 +1292,7 @@ public final class ToolsProto {
        * @return This builder for chaining.
        */
       public Builder setRtp(
-          String value) {
+          java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         rtp_ = value;
         bitField0_ |= 0x00000002;
@@ -1219,7 +1341,7 @@ public final class ToolsProto {
        * <code>bool isFree = 3;</code>
        * @return The isFree.
        */
-      @Override
+      @java.lang.Override
       public boolean getIsFree() {
         return isFree_;
       }
@@ -1258,18 +1380,18 @@ public final class ToolsProto {
     }
 
     // @@protoc_insertion_point(class_scope:ClientRes)
-    private static final ClientRes DEFAULT_INSTANCE;
+    private static final ToolsProto.ClientRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ClientRes();
+      DEFAULT_INSTANCE = new ToolsProto.ClientRes();
     }
 
-    public static ClientRes getDefaultInstance() {
+    public static ToolsProto.ClientRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<ClientRes>
         PARSER = new com.google.protobuf.AbstractParser<ClientRes>() {
-      @Override
+      @java.lang.Override
       public ClientRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1293,13 +1415,13 @@ public final class ToolsProto {
       return PARSER;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<ClientRes> getParserForType() {
       return PARSER;
     }
 
-    @Override
-    public ClientRes getDefaultInstanceForType() {
+    @java.lang.Override
+    public ToolsProto.ClientRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1323,12 +1445,12 @@ public final class ToolsProto {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    String[] descriptorData = {
-      "\n\013Tools.proto\"\'\n\tClientReq\022\r\n\005score\030\001 \001(" +
-      "\003\022\013\n\003bet\030\002 \001(\003\"5\n\tClientRes\022\013\n\003win\030\001 \001(\003" +
-      "\022\013\n\003rtp\030\002 \001(\t\022\016\n\006isFree\030\003 \001(\010B3\n%com.st." +
-      "cloud.game.newCommand.protobufB\nToolsPro" +
-      "tob\006proto3"
+    java.lang.String[] descriptorData = {
+      "\n\013Tools.proto\"6\n\tClientReq\022\r\n\005score\030\001 \001(" +
+      "\003\022\013\n\003bet\030\002 \001(\003\022\r\n\005isPay\030\003 \001(\010\"5\n\tClientR" +
+      "es\022\013\n\003win\030\001 \001(\003\022\013\n\003rtp\030\002 \001(\t\022\016\n\006isFree\030\003" +
+      " \001(\010B3\n%com.st.cloud.game.newCommand.pro" +
+      "tobufB\nToolsProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1339,13 +1461,13 @@ public final class ToolsProto {
     internal_static_ClientReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ClientReq_descriptor,
-        new String[] { "Score", "Bet", });
+        new java.lang.String[] { "Score", "Bet", "IsPay", });
     internal_static_ClientRes_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ClientRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ClientRes_descriptor,
-        new String[] { "Win", "Rtp", "IsFree", });
+        new java.lang.String[] { "Win", "Rtp", "IsFree", });
     descriptor.resolveAllFeaturesImmutable();
   }
 

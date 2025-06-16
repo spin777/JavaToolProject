@@ -39,6 +39,7 @@ public class ConfigManager {
             cvo.setCarryNum(Integer.parseInt(app.getCarryNum().getText()));
             cvo.setAnteNum(Integer.parseInt(app.getAnteNum().getText()));
             cvo.setBetNum(Integer.parseInt(app.getBetNum().getText()));
+            cvo.setPay(app.getPayButton().isSelected());
             FileUtil.writeString(JSONUtil.toJsonStr(cvo), new File(PATH), StandardCharsets.UTF_8);
         } catch (Exception ignored) {
         }
