@@ -359,7 +359,7 @@ public class AppController {
                 ToolsProto.ClientReq.Builder builder = ToolsProto.ClientReq.newBuilder();
                 builder.setScore(gameVo.getScore());
                 builder.setBet(gameVo.getBet());
-                builder.setIsPay(gameVo.isPay());
+                builder.setPay(gameVo.isPay());
                 webSocket.sendMessage(msgId, builder);
             }
         });
@@ -389,7 +389,7 @@ public class AppController {
         ToolsProto.ClientRes res = toClientRes(bytes);
         long win = res.getWin();
         String rtp = res.getRtp();
-        boolean isFree = res.getIsFree();
+        boolean isFree = res.getFree();
         if (win > 0) {
             allWin = gameVo.getWin().addAndGet(win);
             carry = gameVo.getCarry().addAndGet(win);
