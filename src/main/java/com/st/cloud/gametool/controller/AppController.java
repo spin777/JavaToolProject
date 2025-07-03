@@ -353,7 +353,7 @@ public class AppController {
         Thread.startVirtualThread(() -> {
             int runNum = gameVo.getRunNum();
             for (int i = 1; i <= runNum; i++) {
-                ThreadUtil.sleep(20);
+                ThreadUtil.sleep(1);
                 int finalI = i;
                 javafx.application.Platform.runLater(() -> logLabel.setText(String.format("第 %s 局", finalI)));
                 ToolsProto.ClientReq.Builder builder = ToolsProto.ClientReq.newBuilder();
