@@ -1,5 +1,7 @@
 package com.st.cloud.gametool.tools;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import lombok.Data;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -32,6 +34,11 @@ public class GameVo {
     private AtomicLong allBet;
 
     private boolean pay;
+
+    private String choiceBox;
+
+    private boolean usertp;
+
 
     private long startTime = System.currentTimeMillis();
 

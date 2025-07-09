@@ -1,5 +1,6 @@
 package com.st.cloud.gametool.config;
 
+import javafx.scene.control.ChoiceBox;
 import lombok.Data;
 
 /**
@@ -17,4 +18,5 @@ public class ConfigVo {
     private Integer anteNum;
     private Integer betNum;
     private boolean isPay;
+    private String choiceBox;
 }

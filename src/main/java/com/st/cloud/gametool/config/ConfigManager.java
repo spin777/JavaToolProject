@@ -40,6 +40,7 @@ public class ConfigManager {
             cvo.setAnteNum(Integer.parseInt(app.getAnteNum().getText()));
             cvo.setBetNum(Integer.parseInt(app.getBetNum().getText()));
             cvo.setPay(app.getPayButton().isSelected());
+            cvo.setChoiceBox(app.getChoiceBox().getValue());
             FileUtil.writeString(JSONUtil.toJsonStr(cvo), new File(PATH), StandardCharsets.UTF_8);
         } catch (Exception ignored) {
         }

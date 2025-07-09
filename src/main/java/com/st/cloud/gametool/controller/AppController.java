@@ -93,10 +93,22 @@ public class AppController {
     RadioButton payButton;
 
     /**
+     * 使用rtp
+     */
+    @FXML
+    RadioButton usertp;
+
+    @FXML
+    private ChoiceBox<String> choiceBox;
+
+    /**
      * 运行游戏按钮
      */
     @FXML
     Button runGame;
+
+    @FXML
+    ToggleGroup radioGroup;
     /**
      * 次数日志
      */
@@ -132,6 +144,9 @@ public class AppController {
             setNumberValue(anteNum, cvo.getAnteNum());
             setNumberValue(betNum, cvo.getBetNum());
             payButton.setSelected(cvo.isPay());
+            if(cvo.getChoiceBox() != null){
+                choiceBox.setValue(cvo.getChoiceBox());
+            }
         }
         //  登录按钮点击事件
         login.setOnAction(event -> login());
@@ -317,6 +332,8 @@ public class AppController {
         gameVo.setAllBet(new AtomicLong(0));
         gameVo.setRunNum(runNum);
         gameVo.setPay(payButton.isSelected());
+        gameVo.setChoiceBox(choiceBox.getValue());
+        gameVo.setUsertp(usertp.isSelected());
         path += "\\" + gameId + ".txt";
         String writerStr = String.format("%s,开始携带额度:%s\n", DateUtil.now(), gameVo.getCarry().get());
         logMap.put(0, writerStr);
@@ -360,6 +377,8 @@ public class AppController {
                 builder.setScore(gameVo.getScore());
                 builder.setBet(gameVo.getBet());
                 builder.setPay(gameVo.isPay());
+                builder.setRtp(gameVo.getChoiceBox());
+                builder.setUseBloodPool(gameVo.isUsertp());
                 webSocket.sendMessage(msgId, builder);
             }
         });
@@ -385,9 +404,13 @@ public class AppController {
         long carry = gameVo.getCarry().addAndGet(-gameVo.getBet());
         long allBet = gameVo.getAllBet().addAndGet(gameVo.getBet());
         long allWin = gameVo.getWin().get();
+        boolean useBloodPool = gameVo.isUsertp();
 
         ToolsProto.ClientRes res = toClientRes(bytes);
         long win = res.getWin();
+        int winNum = res.getWinNum();
+        String winInfo = res.getWinInfo();
+        int winMul = res.getWinMul();
         String rtp = res.getRtp();
         boolean isFree = res.getFree();
         if (win > 0) {
@@ -395,7 +418,7 @@ public class AppController {
             carry = gameVo.getCarry().addAndGet(win);
         }
 
-        String writerStr = String.format("%s,第%s局,%s,变动后:%s,得分:%s,作弊值:%s\n", DateUtil.now(), runNum, isFree ? "免费" : "常规", carry, win, rtp);
+        String writerStr = String.format("%s,第%s局,%s,变动后:%s,得分:%s,中奖倍数:%s,连击次数:%s,中奖信息:%s,作弊值:%s\n", DateUtil.now(), runNum, isFree ? "免费" : "常规", carry, win, winMul, winNum, winInfo, rtp);
         logMap.put(runNum, writerStr);
         if (runNum % 100 == 0) {
             String finalWriterStr = writerStr;
