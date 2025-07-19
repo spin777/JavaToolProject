@@ -35,10 +35,12 @@ public class WebSocket {
     final int roomId;
     EventLoopGroup group;
     int port;
+    final String origin;
 
     private final AppController app;
 
     public WebSocket(String uri, String token, int gameId, int roomId, AppController app) {
+        origin = uri;
         if (uri.startsWith("http")) {
             uri = "ws" + uri.substring(4);
         } else if (uri.startsWith("https")) {
@@ -67,6 +69,7 @@ public class WebSocket {
         headers.add("Authorization", token);
         headers.add("gameId", gameId);
         headers.add("roomId", roomId);
+        headers.add("Origin", "https://st-member.externalfeature.com");
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(group)
