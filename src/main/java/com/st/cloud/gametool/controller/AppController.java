@@ -13,6 +13,7 @@ import com.st.cloud.gametool.config.ConfigVo;
 import com.st.cloud.gametool.proto.ToolsProto;
 import com.st.cloud.gametool.tools.GameVo;
 import com.st.cloud.gametool.websocket.WebSocket;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import lombok.Getter;
@@ -22,6 +23,7 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
@@ -96,7 +98,7 @@ public class AppController {
      * 使用rtp
      */
     @FXML
-    RadioButton usertp;
+    RadioButton useRtp;
 
     @FXML
     private ChoiceBox<String> choiceBox;
@@ -119,6 +121,9 @@ public class AppController {
      */
     @FXML
     TextArea logTa;
+
+    @FXML
+    Button updateConfig;
 
 
     private String token;
@@ -144,7 +149,7 @@ public class AppController {
             setNumberValue(anteNum, cvo.getAnteNum());
             setNumberValue(betNum, cvo.getBetNum());
             payButton.setSelected(cvo.isPay());
-            if(cvo.getChoiceBox() != null){
+            if (cvo.getChoiceBox() != null) {
                 choiceBox.setValue(cvo.getChoiceBox());
             }
         }
@@ -154,6 +159,8 @@ public class AppController {
         linkGame.setOnAction(event -> linkGame());
         //  运行游戏按钮点击事件
         runGame.setOnAction(event -> runGame());
+        // 更新配置
+        updateConfig.setOnAction(event -> updateConfig());
     }
 
     /**
@@ -249,6 +256,28 @@ public class AppController {
         saveConfig();
     }
 
+    void updateConfig() {
+        if (StrUtil.isBlank(token)) {
+            showCloseAlert("请先登录!");
+        } else {
+            String url = this.serverUrl.getText() + "/gateway/game/gameInfo/gameReSetJsonConfig";
+            updateConfig.setText("刷新中...");
+            updateConfig.setDisable(true);
+            logTa.appendText("开始刷新配置\n");
+            CompletableFuture.runAsync(() -> {
+                HttpRequest.get(url)
+                        .header("Authorization", token)
+                        .header("Origin", "localhost")
+                        .execute().body();
+                Platform.runLater(() -> {
+                    updateConfig.setText("刷新配置");
+                    updateConfig.setDisable(false);
+                    logTa.appendText("配置刷新完成\n");
+                });
+            });
+        }
+    }
+
     private WebSocket webSocket;
 
     public void close() {
@@ -333,7 +362,7 @@ public class AppController {
         gameVo.setRunNum(runNum);
         gameVo.setPay(payButton.isSelected());
         gameVo.setChoiceBox(choiceBox.getValue());
-        gameVo.setUsertp(usertp.isSelected());
+        gameVo.setUseRtp(useRtp.isSelected());
         path += "\\" + gameId + ".txt";
         String writerStr = String.format("%s,开始携带额度:%s\n", DateUtil.now(), gameVo.getCarry().get());
         logMap.put(0, writerStr);
@@ -378,7 +407,7 @@ public class AppController {
                 builder.setBet(gameVo.getBet());
                 builder.setPay(gameVo.isPay());
                 builder.setRtp(gameVo.getChoiceBox());
-                builder.setUseBloodPool(gameVo.isUsertp());
+                builder.setUseBloodPool(gameVo.isUseRtp());
                 webSocket.sendMessage(msgId, builder);
             }
         });
@@ -404,7 +433,7 @@ public class AppController {
         long carry = gameVo.getCarry().addAndGet(-gameVo.getBet());
         long allBet = gameVo.getAllBet().addAndGet(gameVo.getBet());
         long allWin = gameVo.getWin().get();
-        boolean useBloodPool = gameVo.isUsertp();
+        boolean useBloodPool = gameVo.isUseRtp();
 
         ToolsProto.ClientRes res = toClientRes(bytes);
         long win = res.getWin();

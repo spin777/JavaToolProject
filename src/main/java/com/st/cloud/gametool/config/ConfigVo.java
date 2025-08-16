@@ -1,6 +1,5 @@
 package com.st.cloud.gametool.config;
 
-import javafx.scene.control.ChoiceBox;
 import lombok.Data;
 
 /**
